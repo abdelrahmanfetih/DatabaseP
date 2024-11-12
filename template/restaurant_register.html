@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Registration</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      h1 {
+        color: #e74c3c; /* Red color for restaurant theme */
+      }
+      #home-btn {
+        padding: 10px 20px;
+        background-color: #e74c3c; /* Red color for restaurant theme */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none; /* Remove underlines for link appearance */
+        float: left; /* Move the Home button to the left */
+        margin-bottom: 20px; /* Add margin to separate from the form */
+      }
+      #register-form {
+        clear: left; /* Ensure the form does not wrap around the Home button */
+        margin-top: 20px;
+      }
+      .form-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      #register-btn {
+        padding: 10px 20px;
+        background-color: #e74c3c; /* Red color for restaurant theme */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      #register-btn:hover {
+        background-color: #c0392b; /* Darker red color on hover */
+      }
+      #delivery-radius {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        resize: vertical; /* Allow vertical resizing of the textarea */
+      }
+    </style>
+  </head>
+  <body>
+    <a href="{{ url_for('restaurant_login') }}" id="home-btn">Back to Login</a>
+
+    <h1>Restaurant Registration</h1>
+
+    <form
+      id="register-form"
+      action="{{ url_for('restaurant_register') }}"
+      method="post"
+    >
+      <input
+        type="text"
+        name="name"
+        class="form-input"
+        placeholder="Name"
+        required
+      />
+
+      <input
+        type="text"
+        name="username"
+        class="form-input"
+        placeholder="Username"
+        required
+      />
+      <input
+        type="text"
+        name="address"
+        class="form-input"
+        placeholder="Address"
+        required
+      />
+      <input
+        type="text"
+        name="description"
+        class="form-input"
+        placeholder="Description"
+        required
+      />
+      <input
+        type="text"
+        name="image_path"
+        class="form-input"
+        placeholder="Image Path"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        class="form-input"
+        placeholder="Password"
+        required
+      />
+      <input
+        type="time"
+        name="opening_time"
+        class="form-input"
+        placeholder="Opening Time"
+        required
+      />
+      <input
+        type="time"
+        name="closing_time"
+        class="form-input"
+        placeholder="Closing Time"
+        required
+      />
+      <textarea
+        name="delivery_radius"
+        id="delivery-radius"
+        placeholder="Delivery Radius (Enter postal codes separated by new lines)"
+        required
+      ></textarea>
+
+      <button id="register-btn" type="submit">Sign up</button>
+    </form>
+  </body>
+</html>

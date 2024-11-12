@@ -1,0 +1,93 @@
+<!-- menu.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      h1 {
+        color: #e74c3c;
+      }
+      #back-btn {
+        padding: 10px 20px;
+        background-color: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        float: left;
+        margin-bottom: 20px;
+      }
+      .menu-item {
+        list-style: none;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .edit-link,
+      .remove-link,
+      .add-item-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        text-decoration: none;
+      }
+      .edit-link:hover,
+      .delete-link:hover,
+      .add-item-link:hover {
+        background-color: #c0392b;
+      }
+      #add-item-form {
+        display: none;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="{{ url_for('restaurant_main') }}" id="back-btn">Back</a>
+    <h1>Menu</h1>
+    {% if menu_items %}
+    <ul id="menu-items">
+      {% for item in menu_items %}
+      <li class="menu-item">
+        <h2>{{ item[2] }}</h2>
+        <p>Description: {{ item[3] }}</p>
+        <p>Price: {{ item[4] }}</p>
+        <a
+          class="edit-link"
+          href="{{ url_for('edit_menu_item', item_id=item[0]) }}"
+          >Edit</a
+        >
+
+        <a
+          class="remove-link"
+          href="{{ url_for('remove_menu_item', item_id=item[0]) }}"
+          >Delete</a
+        >
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No Items</p>
+    {% endif %}
+
+    <a href="{{ url_for('add_menu_item') }}" class="add-item-link">
+      Add New Item
+    </a>
+  </body>
+</html>

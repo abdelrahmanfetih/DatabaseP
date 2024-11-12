@@ -1,0 +1,97 @@
+<!-- restaurant_dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      h1 {
+        color: #e74c3c; /* Updated color for h1 */
+      }
+      #logout-btn {
+        padding: 10px 20px;
+        background-color: #e74c3c; /* Updated color for logout button */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        float: right;
+        margin-bottom: 20px;
+      }
+      #menu-link,
+      #orders-link,
+      #history-link {
+        margin: 20px;
+        font-size: 18px;
+        color: #e74c3c; /* Updated color for links */
+        text-decoration: none;
+      }
+      #orders-container {
+        margin-top: 50px;
+      }
+      .order-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #accept-btn,
+      #refuse-btn {
+        padding: 10px 20px;
+        background-color: #e74c3c; /* Updated color for buttons */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      #accept-btn:hover,
+      #refuse-btn:hover {
+        background-color: #c0392b; /* Updated hover color for buttons */
+      }
+    </style>
+  </head>
+  <body>
+    <a href="{{ url_for('restaurant_login') }}" id="logout-btn">Logout</a>
+    <h1>Restaurant Dashboard</h1>
+
+    <a href="{{ url_for('restaurant_menu') }}" id="menu-link">Menu</a>
+    <a href="{{ url_for('restaurant_order_history') }}" id="history-link"
+      >History</a
+    >
+
+    <h2>Orders In Progress</h2>
+
+    <div id="orders-container">
+      {% for order in orders %} {% if order[7] == "In Progress" %}
+      <div class="order-item">
+        <p>Order ID: {{ order[0] }}</p>
+        <p>Client: {{ order[1] }}</p>
+        <p>Items: {{ order[3] }}</p>
+        <p>Total Price: {{ order[5] }}</p>
+        <form
+          method="post"
+          action="{{ url_for('accept_order', order_id=order.id) }}"
+        >
+          <button type="submit">Accept Order</button>
+        </form>
+        <form
+          method="post"
+          action="{{ url_for('refuse_order', order_id=order.id) }}"
+        >
+          <button type="submit">Refuse Order</button>
+        </form>
+      </div>
+      {% endif %} {% endfor %}
+    </div>
+  </body>
+</html>

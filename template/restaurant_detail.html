@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Detail</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      h1 {
+        color: #2980b9; /* Changed color to #2980b9 */
+      }
+      .restaurant-info {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 0 auto;
+        width: 50%;
+        max-width: 600px;
+      }
+      .restaurant-info p {
+        margin-bottom: 10px;
+      }
+      .back-link {
+        display: block;
+        margin-top: 20px;
+        color: #2980b9; /* Changed color to #2980b9 */
+        text-decoration: none;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Restaurant Detail</h1>
+    <div class="restaurant-info">
+      <h2>{{ restaurant[1] }}</h2>
+      <!-- Hier wird der Name des Restaurants angezeigt -->
+      <p>Description: {{ restaurant[4] }}</p>
+      <p>Address: {{ restaurant[3] }}</p>
+      <p>Opening Hours: {{ restaurant[7] }} - {{ restaurant[8] }}</p>
+      <!-- Weitere Informationen oder Funktionen können hier angezeigt werden -->
+    </div>
+    <a
+      href="{{ url_for('restaurant_menu_client', restaurant_id=restaurant[0]) }}"
+      id="menu-link"
+      >Menu</a
+    >
+
+    <a href="{{ url_for('client_main') }}" class="back-link"
+      >Back to Restaurant List</a
+    >
+  </body>
+</html>

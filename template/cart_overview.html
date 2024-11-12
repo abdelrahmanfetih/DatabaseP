@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart Overview</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #2980b9;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      form {
+        display: inline-block;
+      }
+
+      button {
+        background-color: #2980b9;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      button:hover {
+        background-color: #1f618d;
+      }
+
+      .back-link {
+        display: block;
+        margin-top: 20px;
+        color: #2980b9;
+        text-decoration: none;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      textarea {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Your Cart</h1>
+
+    {% if cart_items %}
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+        <tr>
+          <td>{{ item['name'] }}</td>
+          <td>${{ item['price'] }}</td>
+          <td>
+            <form method="post" action="{{ url_for('cart_overview') }}">
+              <input type="hidden" name="action" value="update" />
+              <input type="hidden" name="item_id" value="{{ item['id'] }}" />
+              <input
+                type="number"
+                name="quantity"
+                value="{{ item['quantity'] }}"
+                min="1"
+              />
+              <button type="submit">Update</button>
+            </form>
+          </td>
+          <td>${{ item['price'] * item['quantity'] }}</td>
+          <td>
+            <form method="post" action="{{ url_for('cart_overview') }}">
+              <input type="hidden" name="action" value="remove" />
+              <input type="hidden" name="item_id" value="{{ item['id'] }}" />
+              <button type="submit">Remove</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3"><strong>Total</strong></td>
+          <td colspan="2">${{ total_price }}</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <form method="post" action="{{ url_for('cart_overview') }}">
+      <input type="hidden" name="action" value="submit" />
+      <textarea
+        name="additional_notes"
+        placeholder="Additional Notes"
+        rows="4"
+      ></textarea>
+      <button type="submit">Submit</button>
+    </form>
+
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+
+    <a href="{{ url_for('client_main') }}" class="back-link">&lt; Back</a>
+  </body>
+</html>

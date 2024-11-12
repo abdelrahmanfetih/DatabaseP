@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Order History</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      h1 {
+        color: #2980b9;
+      }
+      table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 20px auto;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .back-link {
+        display: block;
+        margin-top: 20px;
+        color: #2980b9;
+        text-decoration: none;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      .item-name {
+        font-weight: bold;
+      }
+      .quantity {
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Client Order History</h1>
+
+    {% if orders_with_status %}
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Client ID</th>
+          <th>Order Date</th>
+          <th>Total Price</th>
+          <th>Status</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order, status, ordered_items in orders_with_status %}
+        <tr>
+          <td>{{ order[0] }}</td>
+          <td>{{ order[1] }}</td>
+          <td>{{ order[6] }}</td>
+          <td>{{ order[5] }}</td>
+          <td>{{ status }}</td>
+          <td>
+            <ul>
+              {% for item in ordered_items %}
+              <li>
+                <span class="item-name">{{ item['name'] }}</span> -
+                <span class="quantity">Quantity: {{ item['quantity'] }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No order history available.</p>
+    {% endif %}
+    <a href="{{ url_for('client_main') }}" class="back-link">&lt; Back</a>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to lieferspatz</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      h1 {
+        color: #2980b9; /* Changed color to #2980b9 */
+      }
+      .logout-container {
+        display: flex;
+        justify-content: flex-end; /* Aligns items to the right */
+        margin-bottom: 20px; /* Add margin to create space between the logout link and content */
+      }
+      .logout-link,
+      .button-link {
+        padding: 10px 20px;
+        background-color: #2980b9; /* Changed color to #2980b9 */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-left: 10px; /* Add margin to separate logout link from other links */
+        transition: background-color 0.3s ease; /* Added transition effect */
+      }
+      .logout-link:hover,
+      .button-link:hover {
+        background-color: #1f618d; /* Darker shade for hover effect */
+      }
+      .restaurant-list {
+        list-style: none;
+        padding: 0;
+        text-align: left;
+      }
+      .restaurant-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .client {
+        display: flex;
+        justify-content: center; /* Horizontally center the content */
+      }
+    </style>
+    <title>Your Dashboard</title>
+  </head>
+  <body>
+    <h1>Welcome to lieferspatz,</h1>
+    <div class="logout-container">
+      <p class="client">{{ client[1] }}</p>
+      <a href="{{ url_for('client_login') }}" class="logout-link">Logout</a>
+    </div>
+
+    <h2>Available Restaurants for you</h2>
+    {% if restaurants %}
+    <ul class="restaurant-list">
+      {% for restaurant in restaurants %}
+      <li class="restaurant-item">
+        <h3>
+          <a
+            href="{{ url_for('restaurant_detail', restaurant_id=restaurant[0]) }}"
+          >
+            {{ restaurant[1] }}
+            <!-- Hier wird der Name des Restaurants angezeigt -->
+          </a>
+        </h3>
+        <p>{{ restaurant[4] }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No restaurants available in your area at the moment.</p>
+    {% endif %}
+
+    <a class="button-link" href="{{ url_for('cart_overview') }}">Show Cart</a>
+    <a class="button-link" href="{{ url_for('client_order_history') }}"
+      >View History</a
+    >
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      h1 {
+        color: #e74c3c; /* Red color for restaurant theme */
+      }
+      #home-btn {
+        padding: 10px 20px;
+        background-color: #e74c3c; /* Red color for restaurant theme */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none; /* Remove underlines for link appearance */
+        float: left; /* Move the Home button to the left */
+        margin-bottom: 20px; /* Add margin to separate from the form */
+      }
+      #login-form {
+        clear: left; /* Ensure the form does not wrap around the Home button */
+        margin-top: 20px;
+      }
+      .form-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      #login-btn {
+        padding: 10px 20px;
+        background-color: #e74c3c; /* Red color for restaurant theme */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      #login-btn:hover {
+        background-color: #c0392b; /* Darker red color on hover */
+      }
+      #signup-link {
+        display: block;
+        margin-top: 15px;
+        color: #e74c3c; /* Red color for restaurant theme */
+        text-decoration: none;
+      }
+      #signup-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="{{ url_for('welcome') }}" id="home-btn">Home</a>
+
+    <h1>Restaurant Login</h1>
+
+    <form
+      id="login-form"
+      method="POST"
+      action="{{ url_for('restaurant_login') }}"
+    >
+      <input
+        type="text"
+        name="username"
+        class="form-input"
+        placeholder="Username"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        class="form-input"
+        placeholder="Password"
+        required
+      />
+
+      <button id="login-btn" type="submit">Login</button>
+
+      <p>
+        Don't have an account?
+        <a href="{{ url_for('restaurant_register') }}" id="signup-link"
+          >Sign up here</a
+        >
+      </p>
+    </form>
+  </body>
+</html>

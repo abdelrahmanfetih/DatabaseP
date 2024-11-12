@@ -1,0 +1,99 @@
+<!-- edit_item.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Item</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      h1 {
+        color: #e74c3c;
+      }
+      #back-btn {
+        padding: 10px 20px;
+        background-color: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        float: left;
+        margin-bottom: 20px;
+      }
+      #update-btn {
+        padding: 10px 20px;
+        background-color: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+        display: block; /* Set the button to display as a block */
+        margin-left: auto; /* Align the button to the center */
+        margin-right: auto;
+      }
+      #update-btn:hover {
+        background-color: #c0392b;
+      }
+      #edit-item-form {
+        margin-top: 20px;
+      }
+      label {
+        text-align: left;
+        width: 60%;
+        display: inline-block;
+        margin-top: 10px;
+      }
+      input {
+        padding: 8px;
+        margin: 5px;
+        width: 60%;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="{{ url_for('restaurant_menu') }}" id="back-btn">Back</a>
+    <h1>Edit Item</h1>
+
+    <form
+      id="edit-item-form"
+      method="post"
+      action="{{ url_for('edit_menu_item', item_id=menu_item[0]) }}"
+    >
+      <label for="item-name">Name:</label>
+      <input
+        type="text"
+        id="item-name"
+        name="name"
+        value="{{ menu_item[2] }}"
+        required
+      />
+
+      <label for="item-description">Description:</label>
+      <input
+        type="text"
+        id="item-description"
+        name="description"
+        value="{{ menu_item[3] }}"
+        required
+      />
+
+      <label for="item-price">Price:</label>
+      <input
+        type="text"
+        id="item-price"
+        name="price"
+        value="{{ menu_item[4] }}"
+        required
+      />
+
+      <button id="update-btn" type="submit">Update Item</button>
+    </form>
+  </body>
+</html>

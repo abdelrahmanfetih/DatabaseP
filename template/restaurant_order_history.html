@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order History - Restaurant</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f9f9f9;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      tr:hover {
+        background-color: #e2e2e2;
+      }
+
+      p {
+        margin-bottom: 10px;
+      }
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+        margin-right: 10px;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      button {
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 8px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+      }
+
+      ul li {
+        margin-bottom: 6px;
+      }
+
+      select {
+        padding: 8px 16px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Order History</h1>
+
+    {% if orders_with_items %}
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Client ID</th>
+          <th>Order Date</th>
+          <th>Total Price</th>
+          <th>Notes</th>
+          <th>Ordered Items</th>
+          <th>Status</th>
+          <th>Change Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for status, order_with_items in orders_with_items %}
+        <tr>
+          <td>{{ order_with_items['order_details'][0] }}</td>
+          <td>{{ order_with_items['order_details'][1] }}</td>
+          <td>{{ order_with_items['order_details'][7] }}</td>
+          <td>${{ order_with_items['order_details'][5] }}</td>
+          <td>{{ order_with_items['order_details'][8] }}</td>
+          <td>
+            <ul>
+              {% for item in order_with_items['ordered_items'] %}
+              <li>{{ item['name'] }} - Quantity: {{ item['quantity'] }}</li>
+              {% endfor %}
+            </ul>
+          </td>
+          <td>{{ status }}</td>
+          <td>
+            <form
+              method="post"
+              action="{{ url_for('update_order_status_route') }}"
+            >
+              <input
+                type="hidden"
+                name="order_id"
+                value="{{ order_with_items['order_details'][0] }}"
+              />
+              <select name="new_status">
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+              <button type="submit">Update Status</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No order history available.</p>
+    {% endif %}
+
+    <p>Return to Home:</p>
+    <a href="{{ url_for('restaurant_main') }}">Back to Home</a>
+  </body>
+</html>

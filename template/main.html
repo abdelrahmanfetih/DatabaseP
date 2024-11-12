@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Lieferspatz!</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      h1 {
+        color: #3498db;
+      }
+      #choice-form {
+        margin-top: 20px;
+      }
+      .choice-input {
+        display: none;
+      }
+      .choice-label {
+        display: inline-block;
+        padding: 10px;
+        border: 2px solid #3498db;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        color: #3498db;
+      }
+      .choice-label:hover {
+        background-color: #919090;
+        color: #3498db;
+      }
+      .choice-input:checked + .choice-label {
+        background-color: #afafaf;
+        color: white;
+      }
+      #continue-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #2980b9;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      #continue-btn:hover {
+        background-color: #1c6ca7;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to Lieferspatz!</h1>
+    <p>Are you a client or a restaurant?</p>
+
+    <form
+      id="choice-form"
+      method="post"
+      action="{{ url_for('handle_choice') }}"
+    >
+      <input
+        type="radio"
+        name="role"
+        id="client"
+        class="choice-input"
+        value="client"
+        required
+      />
+      <label for="client" class="choice-label">Client</label>
+
+      <input
+        type="radio"
+        name="role"
+        id="restaurant"
+        class="choice-input"
+        value="restaurant"
+        required
+      />
+      <label for="restaurant" class="choice-label">Restaurant</label>
+
+      <br />
+      <button id="continue-btn" type="submit">Continue</button>
+    </form>
+  </body>
+</html>

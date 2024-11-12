@@ -1,0 +1,111 @@
+<!-- client_register.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Registration</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 20px;
+      }
+      h1 {
+        color: #3498db;
+      }
+      #home-btn {
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        float: left;
+        margin-bottom: 20px;
+      }
+      #register-form {
+        clear: left;
+        margin-top: 20px;
+      }
+      .form-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      #register-btn {
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      #register-btn:hover {
+        background-color: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="{{ url_for('client_login') }}" id="home-btn">Back to Login</a>
+
+    <h1>Client Registration</h1>
+
+    <form
+      id="register-form"
+      action="{{ url_for('client_register') }}"
+      method="post"
+    >
+      <input
+        type="text"
+        name="first_name"
+        class="form-input"
+        placeholder="First Name"
+        required
+      />
+
+      <input
+        type="text"
+        name="last_name"
+        class="form-input"
+        placeholder="Last Name"
+        required
+      />
+      <input
+        type="text"
+        name="username"
+        class="form-input"
+        placeholder="Username"
+        required
+      />
+      <input
+        type="text"
+        name="address"
+        class="form-input"
+        placeholder="Address"
+        required
+      />
+      <input
+        type="text"
+        name="postal_code"
+        class="form-input"
+        placeholder="Postal Code"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        class="form-input"
+        placeholder="Password"
+        required
+      />
+
+      <button id="register-btn" type="submit">Sign up</button>
+    </form>
+  </body>
+</html>
